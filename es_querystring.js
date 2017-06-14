@@ -22,6 +22,19 @@ function incomplete(value) {
   }
 }
 
-
+// Here's how Nearley works:
+/*
+function validate(value) {
+  try {
+    if (parse(value).results.length > 0) {
+      return "Valid."
+    } else {
+      return "Not *yet* valid."
+    }
+  } catch(e) {
+    return "Not valid."
+  }
+}
+*/
 
 export { parse, validate }
