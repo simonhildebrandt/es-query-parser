@@ -14,6 +14,14 @@ function validate(value) {
   }
 }
 
+function incomplete(value) {
+  try {
+    return parse(value).results.length == 0
+  } catch(e) {
+    return false
+  }
+}
+
 
 
 export { parse, validate }
