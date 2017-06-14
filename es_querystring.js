@@ -8,8 +8,7 @@ function parse(value) {
 
 function validate(value) {
   try {
-    parse(value)
-    return true
+    return parse(value).results.length > 0
   } catch(e) {
     return false
   }
