@@ -1,0 +1,35 @@
+{
+  "name": "es-query-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "nearleyc es_querystring.ne -o grammar.js",
+    "watch": "watchify es_querystring.js -o index.js -p browserify-notify --debug --standalone ESQueryParser",
+    "build": "browserify es_querystring.js -o index.js --standalone ESQueryParser",
+    "serve": "live-server"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
+  "author": "Simon Hildebrandt <simon.hildebrandt@lexer.com.au> (http://lexer.io/)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "browserify-notify": "^1.1.2",
+    "live-server": "^1.2.0",
+    "nearley": "^2.10.0",
+    "watchify": "^3.9.0"
+  }
+}
