@@ -1,8 +1,9 @@
 import grammar from "./grammar.js"
 import nearley from "nearley"
 
+
 function parse(value) {
-  let p = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
+  var p = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
   return p.feed(value)
 }
 
@@ -37,4 +38,4 @@ function validate(value) {
 }
 */
 
-export { parse, validate }
+module.exports = { parse, validate, incomplete }

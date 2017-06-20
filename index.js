@@ -1,11 +1,6 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ESQueryParser = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.validate = exports.parse = undefined;
-
 var _grammar = require("./grammar.js");
 
 var _grammar2 = _interopRequireDefault(_grammar);
@@ -29,8 +24,30 @@ function validate(value) {
   }
 }
 
-exports.parse = parse;
-exports.validate = validate;
+function incomplete(value) {
+  try {
+    return parse(value).results.length == 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Here's how Nearley works:
+/*
+function validate(value) {
+  try {
+    if (parse(value).results.length > 0) {
+      return "Valid."
+    } else {
+      return "Not *yet* valid."
+    }
+  } catch(e) {
+    return "Not valid."
+  }
+}
+*/
+
+exports = { parse: parse, validate: validate, incomplete: incomplete };
 
 },{"./grammar.js":2,"nearley":3}],2:[function(require,module,exports){
 "use strict";
@@ -38,37 +55,40 @@ exports.validate = validate;
 // Generated automatically by nearley
 // http://github.com/Hardmath123/nearley
 (function () {
-   function id(x) {
-      return x[0];
-   }
-   var grammar = {
-      Lexer: undefined,
-      ParserRules: [{ "name": "_$ebnf$1", "symbols": [] }, { "name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": function arrpush(d) {
-            return d[0].concat([d[1]]);
-         } }, { "name": "_", "symbols": ["_$ebnf$1"], "postprocess": function postprocess(d) {
-            return null;
-         } }, { "name": "__$ebnf$1", "symbols": ["wschar"] }, { "name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {
-            return d[0].concat([d[1]]);
-         } }, { "name": "__", "symbols": ["__$ebnf$1"], "postprocess": function postprocess(d) {
-            return null;
-         } }, { "name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id }, { "name": "MAIN", "symbols": ["clause"] }, { "name": "clause", "symbols": ["clause", "_", "logical", "_", "clause"] }, { "name": "clause", "symbols": [{ "literal": "(" }, "_", "clause", "_", { "literal": ")" }] }, { "name": "clause", "symbols": ["match"] }, { "name": "logical$string$1", "symbols": [{ "literal": "A" }, { "literal": "N" }, { "literal": "D" }], "postprocess": function joiner(d) {
-            return d.join('');
-         } }, { "name": "logical", "symbols": ["logical$string$1"] }, { "name": "logical$string$2", "symbols": [{ "literal": "O" }, { "literal": "R" }], "postprocess": function joiner(d) {
-            return d.join('');
-         } }, { "name": "logical", "symbols": ["logical$string$2"] }, { "name": "match", "symbols": ["field", { "literal": ":" }, "string"] }, { "name": "match", "symbols": ["string"] }, { "name": "field$ebnf$1", "symbols": ["wordchars"] }, { "name": "field$ebnf$1", "symbols": ["field$ebnf$1", "wordchars"], "postprocess": function arrpush(d) {
-            return d[0].concat([d[1]]);
-         } }, { "name": "field", "symbols": ["field$ebnf$1"] }, { "name": "string$ebnf$1", "symbols": ["value"] }, { "name": "string$ebnf$1", "symbols": ["string$ebnf$1", "value"], "postprocess": function arrpush(d) {
-            return d[0].concat([d[1]]);
-         } }, { "name": "string", "symbols": ["string$ebnf$1"] }, { "name": "string$ebnf$2", "symbols": ["value"] }, { "name": "string$ebnf$2", "symbols": ["string$ebnf$2", "value"], "postprocess": function arrpush(d) {
-            return d[0].concat([d[1]]);
-         } }, { "name": "string", "symbols": [{ "literal": "\"" }, "string$ebnf$2", { "literal": "\"" }] }, { "name": "value", "symbols": ["wordchars"] }, { "name": "value", "symbols": [{ "literal": "\\" }, "escaped_value"] }, { "name": "escaped_value", "symbols": [/[\(\)]/] }, { "name": "wordchars", "symbols": [/[a-zA-Z0-9]/] }],
-      ParserStart: "MAIN"
-   };
-   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-      module.exports = grammar;
-   } else {
-      window.grammar = grammar;
-   }
+    function id(x) {
+        return x[0];
+    }
+    var grammar = {
+        Lexer: undefined,
+        ParserRules: [{ "name": "_$ebnf$1", "symbols": [] }, { "name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": function arrpush(d) {
+                return d[0].concat([d[1]]);
+            } }, { "name": "_", "symbols": ["_$ebnf$1"], "postprocess": function postprocess(d) {
+                return null;
+            } }, { "name": "__$ebnf$1", "symbols": ["wschar"] }, { "name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {
+                return d[0].concat([d[1]]);
+            } }, { "name": "__", "symbols": ["__$ebnf$1"], "postprocess": function postprocess(d) {
+                return null;
+            } }, { "name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id }, { "name": "MAIN", "symbols": ["_", "clause", "_"] }, { "name": "clause", "symbols": ["clause", "__", "logical", "__", "clause"] }, { "name": "clause", "symbols": [{ "literal": "(" }, "_", "clause", "_", { "literal": ")" }] }, { "name": "clause", "symbols": ["match"] }, { "name": "logical$string$1", "symbols": [{ "literal": "A" }, { "literal": "N" }, { "literal": "D" }], "postprocess": function joiner(d) {
+                return d.join('');
+            } }, { "name": "logical", "symbols": ["logical$string$1"] }, { "name": "logical$string$2", "symbols": [{ "literal": "O" }, { "literal": "R" }], "postprocess": function joiner(d) {
+                return d.join('');
+            } }, { "name": "logical", "symbols": ["logical$string$2"], "postprocess": function postprocess(data, location, reject) {
+                return ["logical", data[0], data[2]];
+            }
+        }, { "name": "match", "symbols": ["field", { "literal": ":" }, "string"] }, { "name": "match", "symbols": ["string"] }, { "name": "field$ebnf$1", "symbols": ["wordchars"] }, { "name": "field$ebnf$1", "symbols": ["field$ebnf$1", "wordchars"], "postprocess": function arrpush(d) {
+                return d[0].concat([d[1]]);
+            } }, { "name": "field", "symbols": ["field$ebnf$1"] }, { "name": "string$ebnf$1", "symbols": ["value"] }, { "name": "string$ebnf$1", "symbols": ["string$ebnf$1", "value"], "postprocess": function arrpush(d) {
+                return d[0].concat([d[1]]);
+            } }, { "name": "string", "symbols": ["string$ebnf$1"] }, { "name": "string$ebnf$2", "symbols": ["value_or_space"] }, { "name": "string$ebnf$2", "symbols": ["string$ebnf$2", "value_or_space"], "postprocess": function arrpush(d) {
+                return d[0].concat([d[1]]);
+            } }, { "name": "string", "symbols": [{ "literal": "\"" }, "string$ebnf$2", { "literal": "\"" }] }, { "name": "value", "symbols": ["wordchars"] }, { "name": "value", "symbols": [{ "literal": "\\" }, "escaped_value"] }, { "name": "value_or_space", "symbols": ["value"] }, { "name": "value_or_space", "symbols": ["__"] }, { "name": "escaped_value", "symbols": [/[\(\)]/] }, { "name": "wordchars", "symbols": [/[a-zA-Z0-9]/] }],
+        ParserStart: "MAIN"
+    };
+    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+        module.exports = grammar;
+    } else {
+        window.grammar = grammar;
+    }
 })();
 
 },{}],3:[function(require,module,exports){
@@ -343,6 +363,7 @@ Parser.prototype.feed = function(chunk) {
     var lexer = this.lexer;
     lexer.reset(chunk, this.lexerState);
 
+    var token;
     while (token = lexer.next()) {
         // We add new states to table[current+1]
         var column = this.table[this.current];

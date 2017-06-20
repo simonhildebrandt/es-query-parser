@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "compile": "nearleyc es_querystring.ne -o grammar.js",
-    "watch": "watchify es_querystring.js -o index.js -p browserify-notify --debug --standalone ESQueryParser",
-    "build": "browserify es_querystring.js -o index.js --standalone ESQueryParser",
-    "serve": "live-server"
+    "watch": "watchify demo.js -o es_queryparser-debug.js -p browserify-notify --debug",
+    "build": "browserify es_querystring.js -o es_queryparser.js --standalone ESQueryParser",
+    "serve": "live-server",
+    "test": "nearley-test grammar.js"
   },
   "browserify": {
     "transform": [
@@ -29,7 +30,7 @@
     "browserify": "^14.4.0",
     "browserify-notify": "^1.1.2",
     "live-server": "^1.2.0",
-    "nearley": "^2.10.0",
+    "nearley": "^2.10.1",
     "watchify": "^3.9.0"
   }
 }
