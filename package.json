@@ -2,13 +2,19 @@
   "name": "es-query-parser",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "es_queryparser.js",
+  "watch": {
+    "compile": "es_querystring.ne"
+  },
   "scripts": {
+    "watch": "npm-watch",
     "compile": "nearleyc es_querystring.ne -o grammar.js",
-    "watch": "watchify demo.js -o es_queryparser-debug.js -p browserify-notify --debug",
-    "build": "browserify es_querystring.js -o es_queryparser.js --standalone ESQueryParser",
+    "help": "nearleyc -h",
+    "dev": "watchify demo.js -o es_queryparser-debug.js -p browserify-notify --debug",
+    "build": "babel es_querystring.js -o es_queryparser.js",
     "serve": "live-server",
-    "test": "nearley-test grammar.js"
+    "test": "nearley-test grammar.js",
+    "railroad": "nearley-railroad es_querystring.ne -o es_querystring.html"
   },
   "browserify": {
     "transform": [
@@ -25,12 +31,14 @@
   "author": "Simon Hildebrandt <simon.hildebrandt@lexer.com.au> (http://lexer.io/)",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "browserify-notify": "^1.1.2",
     "live-server": "^1.2.0",
     "nearley": "^2.10.1",
+    "npm-watch": "^0.2.0",
     "watchify": "^3.9.0"
   }
 }

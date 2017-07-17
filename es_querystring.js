@@ -2,24 +2,36 @@ import grammar from "./grammar.js"
 import nearley from "nearley"
 
 
-function parse(value) {
-  var p = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
-  return p.feed(value)
-}
+class ParseResult {
+  constructor(input) {
+    this.input = input
+    this.parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
 
-function validate(value) {
-  try {
-    return parse(value).results.length > 0
-  } catch(e) {
-    return false
+    try {
+      this.parser.feed(this.input)
+    } catch(e) {
+      this.error = e
+    }
   }
-}
 
-function incomplete(value) {
-  try {
-    return parse(value).results.length == 0
-  } catch(e) {
-    return false
+  results() {
+    return this.parser.results || []
+  }
+
+  resultCount() {
+    return this.results().length
+  }
+
+  isIncomplete() {
+    return !this.error && this.resultCount() == 0
+  }
+
+  isValid() {
+    return this.resultCount() > 0
+  }
+
+  errorOffset() {
+    return this.error.offset
   }
 }
 
@@ -37,5 +49,4 @@ function validate(value) {
   }
 }
 */
-
-module.exports = { parse, validate, incomplete }
+export default ParseResult

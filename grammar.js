@@ -22,17 +22,17 @@ var grammar = {
     {"name": "clause", "symbols": ["simple"]},
     {"name": "grouped", "symbols": ["clause", "__", "logical", "__", "clause"], "postprocess": 
         function (data, location, reject) {
-        	return [ "logical", data[2][0][0], data[0][0], data[4][0] ];
+        	return { type: "logical", offset: location, operator: data[2][0][0], children: [data[0][0], data[4][0]] };
         }
         },
     {"name": "simple", "symbols": ["match"], "postprocess": 
         function (data, location, reject) {
-        	return [ "simple", data[0][0] ];
+        	return { type: "simple", offset: location, value: data[0][0] };
         }
         },
     {"name": "bracketed", "symbols": [{"literal":"("}, "_", "clause", "_", {"literal":")"}], "postprocess": 
         function (data, location, reject) {
-        	return [ "bracketed", data[2][0] ];
+        	return { type: "bracketed", offset: location, value: data[2][0] };
         }
         },
     {"name": "logical", "symbols": ["logicaloperator"]},
@@ -44,7 +44,7 @@ var grammar = {
     {"name": "match", "symbols": ["string"]},
     {"name": "field_and_string", "symbols": ["field", {"literal":":"}, "string"], "postprocess": 
         function (data, location, reject) {
-        	return [ "attribute", data[0], data[2][1] ];
+        	return { type: 'field', offset: location, field: data[0], value: data[2].value };
         }
         },
     {"name": "field$ebnf$1", "symbols": ["wordchars"]},
@@ -56,7 +56,7 @@ var grammar = {
         },
     {"name": "string", "symbols": ["string_or_quoted_string"], "postprocess": 
         function (data, location, reject) {
-        	return [ "attribute", data[0][0], "default" ];
+        	return { type: 'field', offset: location, field: null, value: data[0][0] };
         }
         },
     {"name": "string_or_quoted_string", "symbols": ["values"]},
@@ -65,22 +65,22 @@ var grammar = {
     {"name": "values$ebnf$1", "symbols": ["values$ebnf$1", "value"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "values", "symbols": ["values$ebnf$1"], "postprocess": 
         function (data, location, reject) {
-        	return ["literal", data[0].join("") ];
+        	return { type: "literal", offset: location, value: data[0].join("") };
         }
         },
     {"name": "quoted_string$ebnf$1", "symbols": ["value_or_space"]},
     {"name": "quoted_string$ebnf$1", "symbols": ["quoted_string$ebnf$1", "value_or_space"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "quoted_string", "symbols": [{"literal":"\""}, "quoted_string$ebnf$1", {"literal":"\""}], "postprocess": 
         function (data, location, reject) {
-        	return ["quoted", data[1].join("") ];
+        	return { type: "quoted", offset: location, value: data[1].join("") };
         }
         },
     {"name": "value", "symbols": ["wordchars"]},
     {"name": "value", "symbols": [{"literal":"\\"}, "escaped_value"]},
     {"name": "value_or_space", "symbols": ["value"]},
-    {"name": "value_or_space", "symbols": ["__"]},
+    {"name": "value_or_space", "symbols": [{"literal":" "}]},
     {"name": "escaped_value", "symbols": [/[\(\)]/]},
-    {"name": "wordchars", "symbols": [/[a-zA-Z0-9]/]}
+    {"name": "wordchars", "symbols": [/[a-zA-Z0-9_-]/]}
 ]
   , ParserStart: "MAIN"
 }

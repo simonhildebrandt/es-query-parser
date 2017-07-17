@@ -12,19 +12,19 @@ clause -> grouped
 
 grouped -> clause __ logical __ clause {%
 	function (data, location, reject) {
-		return [ "logical", data[2][0][0], data[0][0], data[4][0] ];
+		return { type: "logical", offset: location, operator: data[2][0][0], children: [data[0][0], data[4][0]] };
 	}
 %}
 
 simple -> match {%
 	function (data, location, reject) {
-		return [ "simple", data[0][0] ];
+		return { type: "simple", offset: location, value: data[0][0] };
 	}
 %}
 
 bracketed -> "(" _ clause _ ")" {%
 	function (data, location, reject) {
-		return [ "bracketed", data[2][0] ];
+		return { type: "bracketed", offset: location, value: data[2][0] };
 	}
 %}
 
@@ -38,7 +38,7 @@ match -> field_and_string
 
 field_and_string -> field ":" string {%
 	function (data, location, reject) {
-		return [ "attribute", data[0], data[2][1] ];
+		return { type: 'field', offset: location, field: data[0], value: data[2].value };
 	}
 %}
 
@@ -50,7 +50,7 @@ field -> wordchars:+ {%
 
 string -> string_or_quoted_string {%
 	function (data, location, reject) {
-		return [ "attribute", data[0][0], "default" ];
+		return { type: 'field', offset: location, field: null, value: data[0][0] };
 	}
 %}
 
@@ -59,13 +59,13 @@ string_or_quoted_string -> values
 
 values -> value:+ {%
 	function (data, location, reject) {
-		return ["literal", data[0].join("") ];
+		return { type: "literal", offset: location, value: data[0].join("") };
 	}
 %}
 
 quoted_string -> "\"" value_or_space:+ "\"" {%
 	function (data, location, reject) {
-		return ["quoted", data[1].join("") ];
+		return { type: "quoted", offset: location, value: data[1].join("") };
 	}
 %}
 
@@ -73,8 +73,8 @@ value -> wordchars
        | "\\" escaped_value
 
 value_or_space -> value
-                | __
+                | " "
 
 escaped_value -> [\(\)]
 
-wordchars -> [a-zA-Z0-9]
+wordchars -> [a-zA-Z0-9_-]

@@ -1,12 +1,20 @@
-import { parse, validate } from './es_querystring.js'
+import ParseRsult from './es_querystring.js'
 
 $('#data').on('input', (event) => {
-  if(validate(event.target.value)) {
+  let result = new ParseRsult(event.target.value)
+  if(result.isValid()) {
     $('#error').html("")
-    $('#results').html(JSON.stringify(parse(event.target.value).results, null, '\t'))
-    console.log(parse(event.target.value).results)
+    $('#results').html(JSON.stringify(result.results(), null, '\t'))
+    $('#data').css({borderColor: '#AAFFAA'})
   } else {
-    $('#error').html(event.target.value + " isn't a valid query")
-    $('#results').html("")
+    if(result.isIncomplete()) {
+      $('#error').html(result.input + " isn't a complete query")
+      $('#data').css({borderColor: '#FFFFAA'})
+      $('#results').html("")
+    } else {
+      $('#error').html('"' + event.target.value + "\" has an error at " + (result.errorOffset() + 1))
+      $('#data').css({borderColor: '#FFAAAA'})
+      $('#results').html("")
+    }
   }
 })

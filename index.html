@@ -9,7 +9,15 @@
         width: 99%;
       }
       #results {
+        background: #AAFFAA;
+      }
+      .output {
         font-size: large;
+        margin: 1em;
+        padding: 1em;
+      }
+      #error {
+        background: #FFAAAA;
       }
     </style>
      <script
@@ -19,8 +27,8 @@
   </head>
   <body>
     <input id="data"/>
-    <div id="error"></div>
-    <div id="results"></div>
+    <div id="error" class="output"></div>
+    <div id="results" class="output"></div>
     <script src="es_queryparser-debug.js"></script>
   </body>
 </html>
