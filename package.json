@@ -1,44 +1,66 @@
 {
   "name": "es-query-parser",
   "version": "1.0.0",
-  "description": "",
-  "main": "es_queryparser.js",
-  "watch": {
-    "compile": "es_querystring.ne"
+  "description": "An experimental ES syntax parser using Nearley.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonhildebrandt/es-query-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/simonhildebrandt/es-query-parser/issues"
   },
   "scripts": {
+    "clean": "rimraf lib es",
     "watch": "npm-watch",
     "compile": "nearleyc es_querystring.ne -o grammar.js",
     "help": "nearleyc -h",
-    "dev": "watchify demo.js -o es_queryparser-debug.js -p browserify-notify --debug",
-    "build": "babel es_querystring.js -o es_queryparser.js",
+    "demo": "watchify dev/demo.js -o dev/index.js -p browserify-notify --debug",
+    "build": "yarn run build:commonjs && yarn run build:es",
+    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:commonjs:watch": "yarn run build:commonjs -- --watch",
+    "build:es": "BABEL_ENV=es babel src --out-dir es",
+    "build:es:watch": "yarn run build:es -- --watch",
     "serve": "live-server",
-    "test": "nearley-test grammar.js",
-    "railroad": "nearley-railroad es_querystring.ne -o es_querystring.html"
+    "test": "echo 'testing'",
+    "interactive": "nearley-test grammar.js",
+    "railroad": "nearley-railroad src/es_querystring.ne -o es_querystring.html",
+    "prepublish": "yarn run clean && yarn test && yarn run build"
   },
+  "files": [
+    "lib",
+    "es",
+    "grammar.js"
+  ],
   "browserify": {
     "transform": [
       [
         "babelify",
         {
           "presets": [
-            "es2015"
+            "@babel/preset-env"
           ]
         }
       ]
     ]
   },
-  "author": "Simon Hildebrandt <simon.hildebrandt@lexer.com.au> (http://lexer.io/)",
+  "author": "Simon Hildebrandt <simonhildebrandt@gmail.com>",
   "license": "ISC",
+  "dependencies": {
+    "nearley": "^2.10.1"
+  },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babelify": "^7.3.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babelify": "^10.0.0",
     "browserify": "^14.4.0",
     "browserify-notify": "^1.1.2",
     "live-server": "^1.2.0",
     "nearley": "^2.10.1",
     "npm-watch": "^0.2.0",
+    "rimraf": "^2.6.3",
     "watchify": "^3.9.0"
   }
 }

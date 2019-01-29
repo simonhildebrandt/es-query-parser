@@ -1,8 +1,7 @@
-import grammar from "./grammar.js"
+import grammar from "../grammar.js"
 import nearley from "nearley"
 
-
-class ParseResult {
+class Parser {
   constructor(input) {
     this.input = input
     this.parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
@@ -49,4 +48,5 @@ function validate(value) {
   }
 }
 */
-export default ParseResult
+
+export { Parser }

@@ -1,7 +1,7 @@
-import ParseRsult from './es_querystring.js'
+import { Parser } from '../es/index.js'
 
 $('#data').on('input', (event) => {
-  let result = new ParseRsult(event.target.value)
+  let result = new Parser(event.target.value)
   if(result.isValid()) {
     $('#error').html("")
     $('#results').html(JSON.stringify(result.results(), null, '\t'))
