@@ -2,3 +2,5 @@ node_modules
 es_querystring.html
 lib
 es
+.nyc_output
+coverage
