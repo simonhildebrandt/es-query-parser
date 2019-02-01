@@ -14,7 +14,8 @@ clause -> grouped
 
 grouped -> clause __ logical __ clause {%
 	function (data, location, reject) {
-		return { type: "logical", offset: location, operator: data[2][0][0], children: [data[0][0], data[4][0]] };
+		console.log('logical', data)
+		return { type: "logical", offset: location, operator: data[2], children: [data[0][0], data[4][0]] };
 	}
 %}
 
@@ -30,10 +31,17 @@ bracketed -> "(" _ clause _ ")" {%
 	}
 %}
 
-logical -> logicaloperator
+logical -> logicaloperator {%
+	function (data, location, reject) {
+		console.log('logicaloperator', data, location)
+		return { value: data[0][0], offset: location };
+	}
+%}
 
 logicaloperator -> "AND"
       			     | "OR"
+      			     | "NOT"
+      			     | "&&"
 
 match -> field_and_string
        | string

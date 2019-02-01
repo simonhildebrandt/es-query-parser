@@ -28,7 +28,7 @@ exports[`tests.js TAP > field:value 1`] = `
 exports[`tests.js TAP > logical OR operator 1`] = `
 [ { type: 'logical',
     offset: 0,
-    operator: 'OR',
+    operator: { value: 'OR', offset: 8 },
     children: 
      [ { type: 'simple',
          offset: 0,
@@ -49,7 +49,49 @@ exports[`tests.js TAP > logical OR operator 1`] = `
 exports[`tests.js TAP > logical AND operator 1`] = `
 [ { type: 'logical',
     offset: 0,
-    operator: 'AND',
+    operator: { value: 'AND', offset: 8 },
+    children: 
+     [ { type: 'simple',
+         offset: 0,
+         value: 
+          { type: 'field',
+            offset: 0,
+            field: null,
+            value: { type: 'literal', offset: 0, value: 'logical' } } },
+       { type: 'simple',
+         offset: 12,
+         value: 
+          { type: 'field',
+            offset: 12,
+            field: null,
+            value: { type: 'literal', offset: 12, value: 'operator' } } } ] } ]
+`
+
+exports[`tests.js TAP > logical && operator 1`] = `
+[ { type: 'logical',
+    offset: 0,
+    operator: { value: '&&', offset: 8 },
+    children: 
+     [ { type: 'simple',
+         offset: 0,
+         value: 
+          { type: 'field',
+            offset: 0,
+            field: null,
+            value: { type: 'literal', offset: 0, value: 'logical' } } },
+       { type: 'simple',
+         offset: 11,
+         value: 
+          { type: 'field',
+            offset: 11,
+            field: null,
+            value: { type: 'literal', offset: 11, value: 'operator' } } } ] } ]
+`
+
+exports[`tests.js TAP > logical NOT operator 1`] = `
+[ { type: 'logical',
+    offset: 0,
+    operator: { value: 'NOT', offset: 8 },
     children: 
      [ { type: 'simple',
          offset: 0,

@@ -9,6 +9,7 @@ class Parser {
     try {
       this.parser.feed(this.input)
     } catch(e) {
+      console.error(e)
       this.error = e
     }
   }

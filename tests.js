@@ -23,8 +23,6 @@ var tests = [
   // 'boosted^4',
   // 'title:(+return +"pink panther")',
   // 'logicaloperator isinvsible',
-  // 'logical && operator',
-  // 'logical NOT operator',
   // 'logical ! operator',
   // 'logical +operator',
   // 'logical -operator',
@@ -32,6 +30,8 @@ var tests = [
   'field:value',
   'logical OR operator',
   'logical AND operator',
+  'logical && operator',
+  'logical NOT operator',
   '(grouped)',
   '  wschar  ',
   '"quoted"'

@@ -22,7 +22,8 @@ var grammar = {
     {"name": "clause", "symbols": ["simple"]},
     {"name": "grouped", "symbols": ["clause", "__", "logical", "__", "clause"], "postprocess": 
         function (data, location, reject) {
-        	return { type: "logical", offset: location, operator: data[2][0][0], children: [data[0][0], data[4][0]] };
+        	console.log('logical', data)
+        	return { type: "logical", offset: location, operator: data[2], children: [data[0][0], data[4][0]] };
         }
         },
     {"name": "simple", "symbols": ["match"], "postprocess": 
@@ -35,11 +36,20 @@ var grammar = {
         	return { type: "bracketed", offset: location, value: data[2][0] };
         }
         },
-    {"name": "logical", "symbols": ["logicaloperator"]},
+    {"name": "logical", "symbols": ["logicaloperator"], "postprocess": 
+        function (data, location, reject) {
+        	console.log('logicaloperator', data, location)
+        	return { value: data[0][0], offset: location };
+        }
+        },
     {"name": "logicaloperator$string$1", "symbols": [{"literal":"A"}, {"literal":"N"}, {"literal":"D"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "logicaloperator", "symbols": ["logicaloperator$string$1"]},
     {"name": "logicaloperator$string$2", "symbols": [{"literal":"O"}, {"literal":"R"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "logicaloperator", "symbols": ["logicaloperator$string$2"]},
+    {"name": "logicaloperator$string$3", "symbols": [{"literal":"N"}, {"literal":"O"}, {"literal":"T"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "logicaloperator", "symbols": ["logicaloperator$string$3"]},
+    {"name": "logicaloperator$string$4", "symbols": [{"literal":"&"}, {"literal":"&"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "logicaloperator", "symbols": ["logicaloperator$string$4"]},
     {"name": "match", "symbols": ["field_and_string"]},
     {"name": "match", "symbols": ["string"]},
     {"name": "field_and_string", "symbols": ["field", {"literal":":"}, "string"], "postprocess": 

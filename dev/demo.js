@@ -1,7 +1,7 @@
 import { Parser } from '../es/index.js'
 
-$('#data').on('input', (event) => {
-  let result = new Parser(event.target.value)
+const process = value => {
+  let result = new Parser(value)
   if(result.isValid()) {
     $('#error').html("")
     $('#results').html(JSON.stringify(result.results(), null, '\t'))
@@ -17,4 +17,10 @@ $('#data').on('input', (event) => {
       $('#results').html("")
     }
   }
-})
+}
+
+$('#data').on('input', event => process(event.target.value))
+
+const test = 'testing:fields OR (trying AND "fixing")'
+
+$('#data').val(test).trigger('input')
