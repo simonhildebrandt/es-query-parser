@@ -14,7 +14,6 @@ clause -> grouped
 
 grouped -> clause __ logical __ clause {%
 	function (data, location, reject) {
-		console.log('logical', data)
 		return { type: "logical", offset: location, operator: data[2], children: [data[0][0], data[4][0]] };
 	}
 %}
@@ -33,7 +32,6 @@ bracketed -> "(" _ clause _ ")" {%
 
 logical -> logicaloperator {%
 	function (data, location, reject) {
-		console.log('logicaloperator', data, location)
 		return { value: data[0][0], offset: location };
 	}
 %}
@@ -52,7 +50,7 @@ field_and_string -> field ":" string {%
 	}
 %}
 
-field -> wordchars:+ {%
+field -> wordchar:+ {%
 	function (data, location, reject) {
 		return data[0].join("");
 	}
@@ -64,8 +62,14 @@ string -> string_or_quoted_string {%
 	}
 %}
 
-string_or_quoted_string -> values
-                         | quoted_string
+string_or_quoted_string -> weightable_string weight:?
+
+weightable_string -> values
+                  | quoted_string
+
+weight -> "~" weight_number
+
+weight_number -> [0-9]
 
 values -> value:+ {%
 	function (data, location, reject) {
@@ -79,12 +83,15 @@ quoted_string -> "\"" value_or_space:+ "\"" {%
 	}
 %}
 
-value -> wordchars
+value -> wordchar
        | "\\" escaped_value
+			 | wildcard
 
 value_or_space -> value
                 | " "
 
-escaped_value -> [\(\)]
+escaped_value -> [\(\)\?]
 
-wordchars -> [a-zA-Z0-9_-]
+wildcard -> [\?]
+
+wordchar -> [a-zA-Z0-9_-]

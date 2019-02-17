@@ -5,6 +5,46 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
+exports[`tests.js TAP > val?e 1`] = `
+[ { type: 'simple',
+    offset: 0,
+    value: 
+     { type: 'field',
+       offset: 0,
+       field: null,
+       value: [ { type: 'literal', offset: 0, value: 'val?e' } ] } } ]
+`
+
+exports[`tests.js TAP > val\\?e 1`] = `
+[ { type: 'simple',
+    offset: 0,
+    value: 
+     { type: 'field',
+       offset: 0,
+       field: null,
+       value: [ { type: 'literal', offset: 0, value: 'val\\\\,?e' } ] } } ]
+`
+
+exports[`tests.js TAP > val\\(e 1`] = `
+[ { type: 'simple',
+    offset: 0,
+    value: 
+     { type: 'field',
+       offset: 0,
+       field: null,
+       value: [ { type: 'literal', offset: 0, value: 'val\\\\,(e' } ] } } ]
+`
+
+exports[`tests.js TAP > value~0 1`] = `
+[ { type: 'simple',
+    offset: 0,
+    value: 
+     { type: 'field',
+       offset: 0,
+       field: null,
+       value: [ { type: 'literal', offset: 0, value: 'value' } ] } } ]
+`
+
 exports[`tests.js TAP > value 1`] = `
 [ { type: 'simple',
     offset: 0,
@@ -12,7 +52,7 @@ exports[`tests.js TAP > value 1`] = `
      { type: 'field',
        offset: 0,
        field: null,
-       value: { type: 'literal', offset: 0, value: 'value' } } } ]
+       value: [ { type: 'literal', offset: 0, value: 'value' } ] } } ]
 `
 
 exports[`tests.js TAP > field:value 1`] = `
@@ -22,7 +62,7 @@ exports[`tests.js TAP > field:value 1`] = `
      { type: 'field',
        offset: 0,
        field: 'field',
-       value: { type: 'literal', offset: 6, value: 'value' } } } ]
+       value: [ { type: 'literal', offset: 6, value: 'value' } ] } } ]
 `
 
 exports[`tests.js TAP > logical OR operator 1`] = `
@@ -36,14 +76,14 @@ exports[`tests.js TAP > logical OR operator 1`] = `
           { type: 'field',
             offset: 0,
             field: null,
-            value: { type: 'literal', offset: 0, value: 'logical' } } },
+            value: [ { type: 'literal', offset: 0, value: 'logical' } ] } },
        { type: 'simple',
          offset: 11,
          value: 
           { type: 'field',
             offset: 11,
             field: null,
-            value: { type: 'literal', offset: 11, value: 'operator' } } } ] } ]
+            value: [ { type: 'literal', offset: 11, value: 'operator' } ] } } ] } ]
 `
 
 exports[`tests.js TAP > logical AND operator 1`] = `
@@ -57,14 +97,14 @@ exports[`tests.js TAP > logical AND operator 1`] = `
           { type: 'field',
             offset: 0,
             field: null,
-            value: { type: 'literal', offset: 0, value: 'logical' } } },
+            value: [ { type: 'literal', offset: 0, value: 'logical' } ] } },
        { type: 'simple',
          offset: 12,
          value: 
           { type: 'field',
             offset: 12,
             field: null,
-            value: { type: 'literal', offset: 12, value: 'operator' } } } ] } ]
+            value: [ { type: 'literal', offset: 12, value: 'operator' } ] } } ] } ]
 `
 
 exports[`tests.js TAP > logical && operator 1`] = `
@@ -78,14 +118,14 @@ exports[`tests.js TAP > logical && operator 1`] = `
           { type: 'field',
             offset: 0,
             field: null,
-            value: { type: 'literal', offset: 0, value: 'logical' } } },
+            value: [ { type: 'literal', offset: 0, value: 'logical' } ] } },
        { type: 'simple',
          offset: 11,
          value: 
           { type: 'field',
             offset: 11,
             field: null,
-            value: { type: 'literal', offset: 11, value: 'operator' } } } ] } ]
+            value: [ { type: 'literal', offset: 11, value: 'operator' } ] } } ] } ]
 `
 
 exports[`tests.js TAP > logical NOT operator 1`] = `
@@ -99,14 +139,14 @@ exports[`tests.js TAP > logical NOT operator 1`] = `
           { type: 'field',
             offset: 0,
             field: null,
-            value: { type: 'literal', offset: 0, value: 'logical' } } },
+            value: [ { type: 'literal', offset: 0, value: 'logical' } ] } },
        { type: 'simple',
          offset: 12,
          value: 
           { type: 'field',
             offset: 12,
             field: null,
-            value: { type: 'literal', offset: 12, value: 'operator' } } } ] } ]
+            value: [ { type: 'literal', offset: 12, value: 'operator' } ] } } ] } ]
 `
 
 exports[`tests.js TAP > (grouped) 1`] = `
@@ -119,7 +159,7 @@ exports[`tests.js TAP > (grouped) 1`] = `
         { type: 'field',
           offset: 1,
           field: null,
-          value: { type: 'literal', offset: 1, value: 'grouped' } } } } ]
+          value: [ { type: 'literal', offset: 1, value: 'grouped' } ] } } } ]
 `
 
 exports[`tests.js TAP >   wschar   1`] = `
@@ -129,7 +169,7 @@ exports[`tests.js TAP >   wschar   1`] = `
      { type: 'field',
        offset: 2,
        field: null,
-       value: { type: 'literal', offset: 2, value: 'wschar' } } } ]
+       value: [ { type: 'literal', offset: 2, value: 'wschar' } ] } } ]
 `
 
 exports[`tests.js TAP > "quoted" 1`] = `
@@ -139,5 +179,5 @@ exports[`tests.js TAP > "quoted" 1`] = `
      { type: 'field',
        offset: 0,
        field: null,
-       value: { type: 'quoted', offset: 0, value: 'quoted' } } } ]
+       value: [ { type: 'quoted', offset: 0, value: 'quoted' } ] } } ]
 `

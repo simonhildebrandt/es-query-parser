@@ -2,21 +2,23 @@ var tap = require('tap')
 var Parser = require('./lib/index.js').Parser;
 
 var dud = new Parser(')')
-tap.pass(dud.isValid(), false)
-tap.pass(dud.isIncomplete(), false)
-tap.pass(dud.errorOffset(), 1)
+tap.notOk(dud.isValid())
+tap.notOk(dud.isIncomplete())
+tap.match(dud.errorOffset(), 0)
 
 var unfinished = new Parser('(')
-tap.pass(unfinished.isValid(), false)
-tap.pass(unfinished.isIncomplete(), true)
+tap.notOk(unfinished.isValid())
+tap.ok(unfinished.isIncomplete())
 
 // Special characters...
 // + - && || ! ( ) { } [ ] ^ " ~ * ? : \
 
 var tests = [
-  // 'val?e',
+  'val?e',                  // Wildcard
+  'val\\?e',                // Escaped question mark
+  'val\\(e',                // Escaped left bracket
   // 'value*',
-  // 'value~0.8',
+  'value~0',
   // '"several values"~10',
   // 'update_at:[20020101 TO 20030101]',
   // 'username:[Simon TO Thomas]',
@@ -37,7 +39,8 @@ var tests = [
   '"quoted"'
 ]
 
-tests.forEach((test, i) => {
+tests.forEach((test) => {
   var p = new Parser(test)
+  tap.ok(p.isValid(), `${test} wasn't valid`)
   tap.matchSnapshot(p.results(), test)
 })

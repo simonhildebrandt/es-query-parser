@@ -22,7 +22,6 @@ var grammar = {
     {"name": "clause", "symbols": ["simple"]},
     {"name": "grouped", "symbols": ["clause", "__", "logical", "__", "clause"], "postprocess": 
         function (data, location, reject) {
-        	console.log('logical', data)
         	return { type: "logical", offset: location, operator: data[2], children: [data[0][0], data[4][0]] };
         }
         },
@@ -38,7 +37,6 @@ var grammar = {
         },
     {"name": "logical", "symbols": ["logicaloperator"], "postprocess": 
         function (data, location, reject) {
-        	console.log('logicaloperator', data, location)
         	return { value: data[0][0], offset: location };
         }
         },
@@ -57,8 +55,8 @@ var grammar = {
         	return { type: 'field', offset: location, field: data[0], value: data[2].value };
         }
         },
-    {"name": "field$ebnf$1", "symbols": ["wordchars"]},
-    {"name": "field$ebnf$1", "symbols": ["field$ebnf$1", "wordchars"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "field$ebnf$1", "symbols": ["wordchar"]},
+    {"name": "field$ebnf$1", "symbols": ["field$ebnf$1", "wordchar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "field", "symbols": ["field$ebnf$1"], "postprocess": 
         function (data, location, reject) {
         	return data[0].join("");
@@ -69,8 +67,13 @@ var grammar = {
         	return { type: 'field', offset: location, field: null, value: data[0][0] };
         }
         },
-    {"name": "string_or_quoted_string", "symbols": ["values"]},
-    {"name": "string_or_quoted_string", "symbols": ["quoted_string"]},
+    {"name": "string_or_quoted_string$ebnf$1", "symbols": ["weight"], "postprocess": id},
+    {"name": "string_or_quoted_string$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "string_or_quoted_string", "symbols": ["weightable_string", "string_or_quoted_string$ebnf$1"]},
+    {"name": "weightable_string", "symbols": ["values"]},
+    {"name": "weightable_string", "symbols": ["quoted_string"]},
+    {"name": "weight", "symbols": [{"literal":"~"}, "weight_number"]},
+    {"name": "weight_number", "symbols": [/[0-9]/]},
     {"name": "values$ebnf$1", "symbols": ["value"]},
     {"name": "values$ebnf$1", "symbols": ["values$ebnf$1", "value"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "values", "symbols": ["values$ebnf$1"], "postprocess": 
@@ -85,12 +88,14 @@ var grammar = {
         	return { type: "quoted", offset: location, value: data[1].join("") };
         }
         },
-    {"name": "value", "symbols": ["wordchars"]},
+    {"name": "value", "symbols": ["wordchar"]},
     {"name": "value", "symbols": [{"literal":"\\"}, "escaped_value"]},
+    {"name": "value", "symbols": ["wildcard"]},
     {"name": "value_or_space", "symbols": ["value"]},
     {"name": "value_or_space", "symbols": [{"literal":" "}]},
-    {"name": "escaped_value", "symbols": [/[\(\)]/]},
-    {"name": "wordchars", "symbols": [/[a-zA-Z0-9_-]/]}
+    {"name": "escaped_value", "symbols": [/[\(\)\?]/]},
+    {"name": "wildcard", "symbols": [/[\?]/]},
+    {"name": "wordchar", "symbols": [/[a-zA-Z0-9_-]/]}
 ]
   , ParserStart: "MAIN"
 }

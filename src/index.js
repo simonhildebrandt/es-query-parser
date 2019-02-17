@@ -27,7 +27,7 @@ class Parser {
   }
 
   isValid() {
-    return this.resultCount() > 0
+    return !this.error && this.resultCount() > 0
   }
 
   errorOffset() {
