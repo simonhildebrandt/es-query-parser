@@ -31,7 +31,7 @@ class Parser {
   }
 
   errorOffset() {
-    return this.error.offset
+    return !this.Valid() && this.error.offset
   }
 }
 
