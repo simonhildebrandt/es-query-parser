@@ -9,7 +9,6 @@ class Parser {
     try {
       this.parser.feed(this.input)
     } catch(e) {
-      console.error(e)
       this.error = e
     }
   }
@@ -31,7 +30,7 @@ class Parser {
   }
 
   errorOffset() {
-    return !this.Valid() && this.error.offset
+    return !this.isValid() && this.error.offset
   }
 }
 

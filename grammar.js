@@ -48,6 +48,8 @@ var grammar = {
     {"name": "logicaloperator", "symbols": ["logicaloperator$string$3"]},
     {"name": "logicaloperator$string$4", "symbols": [{"literal":"&"}, {"literal":"&"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "logicaloperator", "symbols": ["logicaloperator$string$4"]},
+    {"name": "logicaloperator$string$5", "symbols": [{"literal":"|"}, {"literal":"|"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "logicaloperator", "symbols": ["logicaloperator$string$5"]},
     {"name": "match", "symbols": ["field_and_string"]},
     {"name": "match", "symbols": ["string"]},
     {"name": "field_and_string", "symbols": ["field", {"literal":":"}, "string"], "postprocess": 

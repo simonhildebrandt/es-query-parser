@@ -40,6 +40,7 @@ logicaloperator -> "AND"
       			     | "OR"
       			     | "NOT"
       			     | "&&"
+      			     | "||"
 
 match -> field_and_string
        | string
