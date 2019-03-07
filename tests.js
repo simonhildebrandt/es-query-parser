@@ -54,3 +54,8 @@ var test = "logical && operator OR"
 var p = new Parser(test, true)
 tap.ok(p.isValid, `${test} wasn't valid`)
 tap.matchSnapshot(p.results, test)
+
+var test = "n-null OR theasdas:dasda- thisasdasdas"
+var p = new Parser(test, true)
+tap.ok(p.isValid, `${test} wasn't valid`)
+tap.matchSnapshot(p.results, test)
