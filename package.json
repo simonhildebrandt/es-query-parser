@@ -24,6 +24,7 @@
     "build:es:watch": "yarn run build:es -- --watch",
     "serve": "live-server --open=dev",
     "test": "tap tests.js",
+    "test:snapshot": "TAP_SNAPSHOT=1 tap tests.js",
     "test:cov": "tap tests.js --cov --coverage-report=html",
     "interactive": "nearley-test grammar.js",
     "railroad": "nearley-railroad src/es_querystring.ne -o es_querystring.html",

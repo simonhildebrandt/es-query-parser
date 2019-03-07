@@ -2,35 +2,49 @@ import grammar from "../grammar.js"
 import nearley from "nearley"
 
 class Parser {
-  constructor(input) {
-    this.input = input
-    this.parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
+  constructor(input, incremental=false) {
+    let parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
 
-    try {
-      this.parser.feed(this.input)
-    } catch(e) {
-      this.error = e
+    if (incremental) {
+      let info = parser.save()
+
+      this.error = false
+      this.results = [...input].reduce((prev, character) => {
+        try {
+          parser.feed(character)
+        } catch(e) {
+          parser.restore(info)
+        }
+
+        let {results} = parser;
+        return (results.length > 0 && results) || prev
+      }, {})
+
+    } else {
+      try {
+        parser.feed(input)
+      } catch(e) {
+        this.error = e
+      }
+
+      this.results = parser.results || []
     }
   }
 
-  results() {
-    return this.parser.results || []
+  get resultCount() {
+    return this.results.length
   }
 
-  resultCount() {
-    return this.results().length
+  get isIncomplete() {
+    return !this.error && this.resultCount == 0
   }
 
-  isIncomplete() {
-    return !this.error && this.resultCount() == 0
+  get isValid() {
+    return !this.error && this.resultCount > 0
   }
 
-  isValid() {
-    return !this.error && this.resultCount() > 0
-  }
-
-  errorOffset() {
-    return !this.isValid() && this.error.offset
+  get errorOffset() {
+    return this.error && this.error.offset
   }
 }
 

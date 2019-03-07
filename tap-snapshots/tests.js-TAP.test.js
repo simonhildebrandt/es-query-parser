@@ -181,3 +181,34 @@ exports[`tests.js TAP > "quoted" 1`] = `
        field: null,
        value: { type: 'quoted', start: 0, value: 'quoted' } } } ]
 `
+
+exports[`tests.js TAP > logical && operator junk! 1`] = `
+[ { type: 'simple',
+    start: 0,
+    value: 
+     { type: 'field',
+       start: 0,
+       field: null,
+       value: { type: 'literal', start: 0, value: 'unk' } } } ]
+`
+
+exports[`tests.js TAP > logical && operator OR 1`] = `
+[ { type: 'logical',
+    start: 0,
+    operator: { value: '&&', start: 8 },
+    children: 
+     [ { type: 'simple',
+         start: 0,
+         value: 
+          { type: 'field',
+            start: 0,
+            field: null,
+            value: { type: 'literal', start: 0, value: 'logical' } } },
+       { type: 'simple',
+         start: 11,
+         value: 
+          { type: 'field',
+            start: 11,
+            field: null,
+            value: { type: 'literal', start: 11, value: 'operator' } } } ] } ]
+`
