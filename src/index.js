@@ -6,6 +6,8 @@ class Parser {
     let parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
 
     if (incremental) {
+      // v2 - add better prediction
+      // https://github.com/kach/nearley/issues/316
       let info = parser.save()
 
       this.error = false
