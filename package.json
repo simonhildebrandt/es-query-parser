@@ -28,7 +28,7 @@
     "test:cov": "tap tests.js --cov --coverage-report=html",
     "interactive": "nearley-test grammar.js",
     "railroad": "nearley-railroad src/es_querystring.ne -o es_querystring.html",
-    "prepublish": "yarn run clean && yarn test && yarn run build"
+    "prepublish": "yarn run clean && yarn run build && yarn test"
   },
   "files": [
     "lib",

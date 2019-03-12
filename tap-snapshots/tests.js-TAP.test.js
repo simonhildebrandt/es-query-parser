@@ -179,7 +179,7 @@ exports[`tests.js TAP > "quoted" 1`] = `
      { type: 'field',
        start: 0,
        field: null,
-       value: { type: 'quoted', start: 0, value: 'quoted' } } } ]
+       value: { type: 'quoted', start: 0, value: '"quoted"' } } } ]
 `
 
 exports[`tests.js TAP > logical && operator junk! 1`] = `
