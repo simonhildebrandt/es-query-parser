@@ -8,7 +8,7 @@
 exports[`tests.js TAP > val?e 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: null,
@@ -18,7 +18,7 @@ exports[`tests.js TAP > val?e 1`] = `
 exports[`tests.js TAP > val\\?e 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: null,
@@ -28,7 +28,7 @@ exports[`tests.js TAP > val\\?e 1`] = `
 exports[`tests.js TAP > val\\(e 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: null,
@@ -38,7 +38,7 @@ exports[`tests.js TAP > val\\(e 1`] = `
 exports[`tests.js TAP > value~0 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: null,
@@ -48,7 +48,7 @@ exports[`tests.js TAP > value~0 1`] = `
 exports[`tests.js TAP > value 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: null,
@@ -58,7 +58,7 @@ exports[`tests.js TAP > value 1`] = `
 exports[`tests.js TAP > field:value 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: 'field',
@@ -69,17 +69,17 @@ exports[`tests.js TAP > logical OR operator 1`] = `
 [ { type: 'logical',
     start: 0,
     operator: { value: 'OR', start: 8 },
-    children:
+    children: 
      [ { type: 'simple',
          start: 0,
-         value:
+         value: 
           { type: 'field',
             start: 0,
             field: null,
             value: { type: 'literal', start: 0, value: 'logical' } } },
        { type: 'simple',
          start: 11,
-         value:
+         value: 
           { type: 'field',
             start: 11,
             field: null,
@@ -90,17 +90,17 @@ exports[`tests.js TAP > logical AND operator 1`] = `
 [ { type: 'logical',
     start: 0,
     operator: { value: 'AND', start: 8 },
-    children:
+    children: 
      [ { type: 'simple',
          start: 0,
-         value:
+         value: 
           { type: 'field',
             start: 0,
             field: null,
             value: { type: 'literal', start: 0, value: 'logical' } } },
        { type: 'simple',
          start: 12,
-         value:
+         value: 
           { type: 'field',
             start: 12,
             field: null,
@@ -111,17 +111,17 @@ exports[`tests.js TAP > logical && operator 1`] = `
 [ { type: 'logical',
     start: 0,
     operator: { value: '&&', start: 8 },
-    children:
+    children: 
      [ { type: 'simple',
          start: 0,
-         value:
+         value: 
           { type: 'field',
             start: 0,
             field: null,
             value: { type: 'literal', start: 0, value: 'logical' } } },
        { type: 'simple',
          start: 11,
-         value:
+         value: 
           { type: 'field',
             start: 11,
             field: null,
@@ -132,17 +132,17 @@ exports[`tests.js TAP > logical NOT operator 1`] = `
 [ { type: 'logical',
     start: 0,
     operator: { value: 'NOT', start: 8 },
-    children:
+    children: 
      [ { type: 'simple',
          start: 0,
-         value:
+         value: 
           { type: 'field',
             start: 0,
             field: null,
             value: { type: 'literal', start: 0, value: 'logical' } } },
        { type: 'simple',
          start: 12,
-         value:
+         value: 
           { type: 'field',
             start: 12,
             field: null,
@@ -152,10 +152,10 @@ exports[`tests.js TAP > logical NOT operator 1`] = `
 exports[`tests.js TAP > (grouped) 1`] = `
 [ { type: 'bracketed',
     start: 0,
-    value:
+    value: 
      { type: 'simple',
        start: 1,
-       value:
+       value: 
         { type: 'field',
           start: 1,
           field: null,
@@ -165,7 +165,7 @@ exports[`tests.js TAP > (grouped) 1`] = `
 exports[`tests.js TAP >   wschar   1`] = `
 [ { type: 'simple',
     start: 2,
-    value:
+    value: 
      { type: 'field',
        start: 2,
        field: null,
@@ -175,7 +175,7 @@ exports[`tests.js TAP >   wschar   1`] = `
 exports[`tests.js TAP > "quoted" 1`] = `
 [ { type: 'simple',
     start: 0,
-    value:
+    value: 
      { type: 'field',
        start: 0,
        field: null,
@@ -183,30 +183,41 @@ exports[`tests.js TAP > "quoted" 1`] = `
 `
 
 exports[`tests.js TAP > logical && operator junk! 1`] = `
-[ { type: 'simple',
-    start: 0,
-    value:
-     { type: 'field',
-       start: 0,
-       field: null,
-       value: { type: 'literal', start: 0, value: 'unk' } } } ]
-`
-
-exports[`tests.js TAP > logical && operator OR 1`] = `
 [ { type: 'logical',
     start: 0,
     operator: { value: '&&', start: 8 },
-    children:
+    children: 
      [ { type: 'simple',
          start: 0,
-         value:
+         value: 
           { type: 'field',
             start: 0,
             field: null,
             value: { type: 'literal', start: 0, value: 'logical' } } },
        { type: 'simple',
          start: 11,
-         value:
+         value: 
+          { type: 'field',
+            start: 11,
+            field: null,
+            value: { type: 'literal', start: 11, value: 'operator' } } } ] } ]
+`
+
+exports[`tests.js TAP > logical && operator OR 1`] = `
+[ { type: 'logical',
+    start: 0,
+    operator: { value: '&&', start: 8 },
+    children: 
+     [ { type: 'simple',
+         start: 0,
+         value: 
+          { type: 'field',
+            start: 0,
+            field: null,
+            value: { type: 'literal', start: 0, value: 'logical' } } },
+       { type: 'simple',
+         start: 11,
+         value: 
           { type: 'field',
             start: 11,
             field: null,
@@ -214,11 +225,83 @@ exports[`tests.js TAP > logical && operator OR 1`] = `
 `
 
 exports[`tests.js TAP > n-null OR theasdas:dasda- thisasdasdas 1`] = `
-[ { type: 'simple',
+[ { type: 'logical',
     start: 0,
-    value:
-     { type: 'field',
-       start: 0,
-       field: null,
-       value: { type: 'literal', start: 0, value: 'hisasdasdas' } } } ]
+    operator: { value: 'OR', start: 7 },
+    children: 
+     [ { type: 'simple',
+         start: 0,
+         value: 
+          { type: 'field',
+            start: 0,
+            field: null,
+            value: { type: 'literal', start: 0, value: 'n-null' } } },
+       { type: 'simple',
+         start: 10,
+         value: 
+          { type: 'field',
+            start: 10,
+            field: 'theasdas',
+            value: { type: 'literal', start: 19, value: 'dasda-' } } } ] } ]
+`
+
+exports[`tests.js TAP > this OR that:ss OR assas:s ! 1`] = `
+[ { type: 'logical',
+    start: 0,
+    operator: { value: 'OR', start: 5 },
+    children: 
+     [ { type: 'simple',
+         start: 0,
+         value: 
+          { type: 'field',
+            start: 0,
+            field: null,
+            value: { type: 'literal', start: 0, value: 'this' } } },
+       { type: 'logical',
+         start: 8,
+         operator: { value: 'OR', start: 16 },
+         children: 
+          [ { type: 'simple',
+              start: 8,
+              value: 
+               { type: 'field',
+                 start: 8,
+                 field: 'that',
+                 value: { type: 'literal', start: 13, value: 'ss' } } },
+            { type: 'simple',
+              start: 19,
+              value: 
+               { type: 'field',
+                 start: 19,
+                 field: 'assas',
+                 value: { type: 'literal', start: 25, value: 's' } } } ] } ] },
+  { type: 'logical',
+    start: 0,
+    operator: { value: 'OR', start: 16 },
+    children: 
+     [ { type: 'logical',
+         start: 0,
+         operator: { value: 'OR', start: 5 },
+         children: 
+          [ { type: 'simple',
+              start: 0,
+              value: 
+               { type: 'field',
+                 start: 0,
+                 field: null,
+                 value: { type: 'literal', start: 0, value: 'this' } } },
+            { type: 'simple',
+              start: 8,
+              value: 
+               { type: 'field',
+                 start: 8,
+                 field: 'that',
+                 value: { type: 'literal', start: 13, value: 'ss' } } } ] },
+       { type: 'simple',
+         start: 19,
+         value: 
+          { type: 'field',
+            start: 19,
+            field: 'assas',
+            value: { type: 'literal', start: 25, value: 's' } } } ] } ]
 `

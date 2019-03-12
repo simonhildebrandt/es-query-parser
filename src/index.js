@@ -3,24 +3,26 @@ import nearley from "nearley"
 
 class Parser {
   constructor(input, incremental=false) {
-    let parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
+    const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
+    this.error = null
 
     if (incremental) {
       // v2 - add better prediction
       // https://github.com/kach/nearley/issues/316
       let info = parser.save()
 
-      this.error = false
-      this.results = [...input].reduce((prev, character) => {
-        try {
+      try {
+        [...input].forEach((character) => {
           parser.feed(character)
-        } catch(e) {
-          parser.restore(info)
-        }
-
-        let {results} = parser;
-        return (results.length > 0 && results) || prev
-      }, {})
+          let {results} = parser;
+          if (results.length > 0) {
+            info = parser.save()
+          }
+        })
+      } catch(e) {
+        this.error = e
+      }
+      parser.restore(info)
 
     } else {
       try {
@@ -28,9 +30,9 @@ class Parser {
       } catch(e) {
         this.error = e
       }
-
-      this.results = parser.results || []
     }
+
+    this.results = parser.results || []
   }
 
   get resultCount() {

@@ -45,9 +45,10 @@ tests.forEach((test) => {
   tap.matchSnapshot(p.results, test)
 })
 
+// Test incremental validation
 var test = "logical && operator junk!"
 var p = new Parser(test, true)
-tap.ok(p.isValid, `${test} wasn't valid`)
+tap.notOk(p.isValid, `${test} returned valid`)
 tap.matchSnapshot(p.results, test)
 
 var test = "logical && operator OR"
@@ -57,5 +58,10 @@ tap.matchSnapshot(p.results, test)
 
 var test = "n-null OR theasdas:dasda- thisasdasdas"
 var p = new Parser(test, true)
-tap.ok(p.isValid, `${test} wasn't valid`)
+tap.notOk(p.isValid, `${test} returned valid`)
+tap.matchSnapshot(p.results, test)
+
+var test = "this OR that:ss OR assas:s !"
+var p = new Parser(test, true)
+tap.notOk(p.isValid, `${test} returned valid`)
 tap.matchSnapshot(p.results, test)
