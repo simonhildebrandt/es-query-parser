@@ -80,7 +80,7 @@ values -> value:+ {%
 
 quoted_string -> "\"" value_or_space:+ "\"" {%
 	function (data, location, reject) {
-		return { type: "quoted", start: location, value: data[1].join("") };
+		return { type: "quoted", start: location, value: '"' + data[1].join("") + '"' };
 	}
 %}
 

@@ -87,7 +87,7 @@ var grammar = {
     {"name": "quoted_string$ebnf$1", "symbols": ["quoted_string$ebnf$1", "value_or_space"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "quoted_string", "symbols": [{"literal":"\""}, "quoted_string$ebnf$1", {"literal":"\""}], "postprocess": 
         function (data, location, reject) {
-        	return { type: "quoted", start: location, value: data[1].join("") };
+        	return { type: "quoted", start: location, value: '"' + data[1].join("") + '"' };
         }
         },
     {"name": "value", "symbols": ["wordchar"]},
