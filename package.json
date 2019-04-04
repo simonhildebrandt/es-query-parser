@@ -47,7 +47,7 @@
       ]
     ]
   },
-  "author": "Simon Hildebrandt <simonhildebrandt@gmail.com>",
+  "author": "Simon Hildebrandt <simonhildebrandt@gmail.com> (http://simonhildebrandt.com)",
   "license": "ISC",
   "dependencies": {
     "nearley": "^2.10.1"
@@ -60,7 +60,6 @@
     "browserify": "^14.4.0",
     "browserify-notify": "^1.1.2",
     "live-server": "^1.2.0",
-    "nearley": "^2.10.1",
     "npm-watch": "^0.2.0",
     "rimraf": "^2.6.3",
     "tap": "^12.4.0",
